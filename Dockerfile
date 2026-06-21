@@ -34,7 +34,7 @@ RUN apt-get update && apt-get install -y \
     libboost-iostreams1.74.0 libboost-atomic1.74.0 \
     libboost-container1.74.0 libboost-random1.74.0 \
     unzip python3 python3-pip bash coreutils wget ca-certificates \
-    && pip3 install --no-cache-dir pyyaml \
+    && pip3 install --no-cache-dir pyyaml defusedxml \
     && rm -rf /var/lib/apt/lists/*
 
 # ---------------------------------------------------------------------------
