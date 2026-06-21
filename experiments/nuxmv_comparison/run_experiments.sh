@@ -14,14 +14,13 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BENCH_DIR="/Users/pierredantas/esbmc/benchmarks"
-ESBMC="/Users/pierredantas/esbmc/build/src/esbmc/esbmc"
-NUXMV="/tmp/nuXmv-2.2.0-macos64/usr/local/bin/nuXmv"
+ARTIFACT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
+BENCH_DIR="${BENCH_DIR:-$ARTIFACT_DIR/benchmarks}"
+ESBMC="${ESBMC:-$(command -v esbmc 2>/dev/null || echo "")}"
+NUXMV="${NUXMV:-$(command -v nuXmv 2>/dev/null || command -v nuxmv 2>/dev/null || echo "")}"
 TRANSPILER="$SCRIPT_DIR/ld_to_smv.py"
 RESULTS_DIR="$SCRIPT_DIR/results"
 TIMEOUT=120   # seconds per run
-
-export DYLD_LIBRARY_PATH="/tmp/nuXmv-2.2.0-macos64/usr/local/lib:${DYLD_LIBRARY_PATH:-}"
 
 mkdir -p "$RESULTS_DIR"
 SMV_DIR="$RESULTS_DIR/smv"
