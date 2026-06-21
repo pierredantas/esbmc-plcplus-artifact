@@ -26,14 +26,19 @@ ARG ESBMC_BINARY_URL=https://github.com/pierredantas/esbmc-plcplus-artifact/rele
 
 # ---------------------------------------------------------------------------
 # Runtime dependencies
+# nuXmv 2.2.0 requires GLIBCXX_3.4.32 (GCC 13) not present in Ubuntu 22.04
+# default libstdc++6 — upgrade via ubuntu-toolchain-r PPA.
 # ---------------------------------------------------------------------------
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y software-properties-common ca-certificates \
+    && add-apt-repository -y ppa:ubuntu-toolchain-r/test \
+    && apt-get update && apt-get install -y \
     libstdc++6 libgcc-s1 libgmp10 \
     libboost-date-time1.74.0 libboost-program-options1.74.0 \
     libboost-filesystem1.74.0 libboost-regex1.74.0 \
     libboost-iostreams1.74.0 libboost-atomic1.74.0 \
     libboost-container1.74.0 libboost-random1.74.0 \
-    libxml2 unzip python3 python3-pip bash coreutils wget ca-certificates \
+    libxml2 libedit2 \
+    unzip python3 python3-pip bash coreutils wget \
     && pip3 install --no-cache-dir pyyaml defusedxml \
     && rm -rf /var/lib/apt/lists/*
 
