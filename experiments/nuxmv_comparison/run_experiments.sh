@@ -120,7 +120,7 @@ read_model -i $smv
 flatten_hierarchy
 encode_variables
 build_model
-check_ltlspec
+check_invar
 quit
 EOF
 }
@@ -133,7 +133,7 @@ read_model -i $smv
 flatten_hierarchy
 encode_variables
 build_boolean_model
-check_ltlspec_ic3
+check_invar_ic3
 quit
 EOF
 }

@@ -57,7 +57,7 @@ RUN wget -q --show-progress "$ESBMC_BINARY_URL" -O /usr/local/bin/esbmc \
 # ---------------------------------------------------------------------------
 # NuXmv 2.2.0 (linux64)
 # ---------------------------------------------------------------------------
-RUN wget -q "https://nuxmv.fbk.eu/theme/download.php?file=nuXmv-2.2.0-linux64.tar.xz" \
+RUN wget -q "https://nuxmv.fbk.eu/downloads/2.2.0/nuXmv-2.2.0-linux64.tar.xz" \
     -O /tmp/nuXmv.tar.xz \
     && tar -xf /tmp/nuXmv.tar.xz -C /tmp/ \
     && cp /tmp/nuXmv-2.2.0-linux64/usr/local/bin/nuXmv /usr/local/bin/nuXmv \
