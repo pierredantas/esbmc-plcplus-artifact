@@ -1,0 +1,35 @@
+properties:
+  - id: P1
+    kind: invariant
+    expression: "S1 || S2"
+    description: "At least one state (S1 or S2) must always be active"
+
+  - id: P2
+    kind: invariant
+    expression: "!(S1 && S2)"
+    description: "S1 and S2 must never be active at the same time"
+
+  - id: P3
+    kind: invariant
+    expression: "!Output || S1"
+    description: "Output must only be active when S1 is active"
+
+  - id: P4
+    kind: absence
+    expression: "S1TON.Q && S1"
+    description: "S1 timer expiry must not coincide with S1 still being active (timer should reset S1)"
+
+  - id: P5
+    kind: absence
+    expression: "S2TON.Q && S2"
+    description: "S2 timer expiry must not coincide with S2 still being active (timer should reset S2)"
+
+  - id: P6
+    kind: invariant
+    expression: "!S1TON.Q || S2"
+    description: "When S1 timer elapses, S2 must become active"
+
+  - id: P7
+    kind: invariant
+    expression: "!S2TON.Q || S1"
+    description: "When S2 timer elapses, S1 must become active"

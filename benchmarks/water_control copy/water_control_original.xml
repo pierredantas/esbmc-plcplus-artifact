@@ -1,0 +1,356 @@
+<FunctionBlock name="LD_FB">
+  <Parameters>
+    <OutputVars>
+      <Variable name="Output" orderWithinParamSet="1">
+        <Type>
+          <TypeName>BOOL</TypeName>
+        </Type>
+      </Variable>
+    </OutputVars>
+  </Parameters>
+  <Vars accessSpecifier="private">
+    <Variable name="S1">
+      <Type>
+        <TypeName>BOOL</TypeName>
+      </Type>
+      <InitialValue>
+        <SimpleValue value="TRUE" />
+      </InitialValue>
+    </Variable>
+    <Variable name="S2">
+      <Type>
+        <TypeName>BOOL</TypeName>
+      </Type>
+    </Variable>
+    <Variable name="S1TON">
+      <Type>
+        <TypeName>TON</TypeName>
+      </Type>
+    </Variable>
+    <Variable name="S2TON">
+      <Type>
+        <TypeName>TON</TypeName>
+      </Type>
+    </Variable>
+  </Vars>
+  <MainBody>
+    <BodyContent xsi:type="LD">
+      <Rung evaluationOrder="1">
+        <RelPosition x="1" y="1" />
+        <CommonObject xsi:type="Comment">
+          <RelPosition x="1" y="0" />
+          <Content xsi:type="SimpleText">S1 -> S2</Content>
+        </CommonObject>
+        <LdObject xsi:type="LeftPowerRail">
+          <RelPosition x="1" y="0" />
+          <ConnectionPointOut connectionPointOutId="1">
+            <RelPosition x="0" y="7" />
+          </ConnectionPointOut>
+          <ConnectionPointOut connectionPointOutId="2">
+            <RelPosition x="0" y="15" />
+          </ConnectionPointOut>
+        </LdObject>
+        <LdObject xsi:type="Contact" operand="S1">
+          <RelPosition x="4" y="4" />
+          <ConnectionPointIn>
+            <RelPosition x="2" y="3" />
+            <Connection refConnectionPointOutId="1" />
+          </ConnectionPointIn>
+          <ConnectionPointOut connectionPointOutId="3">
+            <RelPosition x="4" y="3" />
+          </ConnectionPointOut>
+        </LdObject>
+        <FbdObject xsi:type="DataSource" identifier="T#1s">
+          <RelPosition x="8" y="9" />
+          <ConnectionPointOut connectionPointOutId="4">
+            <RelPosition x="4.2" y="1" />
+          </ConnectionPointOut>
+        </FbdObject>
+        <FbdObject xsi:type="Block" typeName="TON" instanceName="S1TON">
+          <RelPosition x="13" y="4" />
+          <InputVariables>
+            <InputVariable parameterName="IN">
+              <ConnectionPointIn>
+                <RelPosition x="0" y="3" />
+                <Connection refConnectionPointOutId="3" />
+              </ConnectionPointIn>
+            </InputVariable>
+            <InputVariable parameterName="PT">
+              <ConnectionPointIn>
+                <RelPosition x="0" y="6" />
+                <Connection refConnectionPointOutId="4" />
+              </ConnectionPointIn>
+            </InputVariable>
+          </InputVariables>
+          <OutputVariables>
+            <OutputVariable parameterName="Q">
+              <ConnectionPointOut connectionPointOutId="5">
+                <RelPosition x="5" y="3" />
+              </ConnectionPointOut>
+            </OutputVariable>
+            <OutputVariable parameterName="ET">
+              <ConnectionPointOut connectionPointOutId="6">
+                <RelPosition x="5" y="6" />
+              </ConnectionPointOut>
+            </OutputVariable>
+          </OutputVariables>
+        </FbdObject>
+        <LdObject xsi:type="Contact" operand="S2">
+          <RelPosition x="4" y="12" />
+          <ConnectionPointIn>
+            <RelPosition x="2" y="3" />
+            <Connection refConnectionPointOutId="2"></Connection>
+          </ConnectionPointIn>
+          <ConnectionPointOut connectionPointOutId="7">
+            <RelPosition x="4" y="3" />
+          </ConnectionPointOut>
+        </LdObject>
+        <LdObject xsi:type="Coil" operand="S2">
+          <RelPosition x="32" y="4" />
+          <ConnectionPointIn>
+            <RelPosition x="2" y="3" />
+            <Connection refConnectionPointOutId="5" />
+            <Connection refConnectionPointOutId="7">
+              <RelPosition x="-10" y="0" />
+              <RelPosition x="-10" y="8" />
+            </Connection>
+          </ConnectionPointIn>
+          <ConnectionPointOut connectionPointOutId="8">
+            <RelPosition x="4" y="3" />
+          </ConnectionPointOut>
+        </LdObject>
+        <LdObject xsi:type="RightPowerRail">
+          <RelPosition x="40" y="0" />
+          <ConnectionPointIn>
+            <RelPosition x="0" y="7" />
+            <Connection refConnectionPointOutId="8" />
+          </ConnectionPointIn>
+        </LdObject>
+      </Rung>
+      <Rung evaluationOrder="2">
+        <RelPosition x="1" y="18" />
+        <LdObject xsi:type="LeftPowerRail">
+          <RelPosition x="1" y="0" />
+          <ConnectionPointOut connectionPointOutId="1">
+            <RelPosition x="0" y="5" />
+          </ConnectionPointOut>
+        </LdObject>
+        <LdObject xsi:type="Contact" negated="true" operand="S1TON.Q">
+          <RelPosition x="4" y="2" />
+          <ConnectionPointIn>
+            <RelPosition x="2" y="3" />
+            <Connection refConnectionPointOutId="1" />
+          </ConnectionPointIn>
+          <ConnectionPointOut connectionPointOutId="2">
+            <RelPosition x="4" y="3" />
+          </ConnectionPointOut>
+        </LdObject>
+        <LdObject xsi:type="Contact" operand="S1">
+          <RelPosition x="11" y="2" />
+          <ConnectionPointIn>
+            <RelPosition x="2" y="3" />
+            <Connection refConnectionPointOutId="2" />
+          </ConnectionPointIn>
+          <ConnectionPointOut connectionPointOutId="3">
+            <RelPosition x="4" y="3" />
+          </ConnectionPointOut>
+        </LdObject>
+        <LdObject xsi:type="Coil" operand="S1">
+          <RelPosition x="32" y="2" />
+          <ConnectionPointIn>
+            <RelPosition x="2" y="3" />
+            <Connection refConnectionPointOutId="3" />
+          </ConnectionPointIn>
+          <ConnectionPointOut connectionPointOutId="4">
+            <RelPosition x="4" y="3" />
+          </ConnectionPointOut>
+        </LdObject>
+        <LdObject xsi:type="RightPowerRail">
+          <RelPosition x="40" y="0" />
+          <ConnectionPointIn>
+            <RelPosition x="0" y="5" />
+            <Connection refConnectionPointOutId="4" />
+          </ConnectionPointIn>
+        </LdObject>
+      </Rung>
+      <Rung evaluationOrder="3">
+        <RelPosition x="1" y="26" />
+        <CommonObject xsi:type="Comment">
+          <RelPosition x="1" y="0" />
+          <Content xsi:type="SimpleText">S2 -> S1</Content>
+        </CommonObject>
+        <LdObject xsi:type="LeftPowerRail">
+          <RelPosition x="1" y="0" />
+          <ConnectionPointOut connectionPointOutId="1">
+            <RelPosition x="0" y="7" />
+          </ConnectionPointOut>
+          <ConnectionPointOut connectionPointOutId="2">
+            <RelPosition x="0" y="15" />
+          </ConnectionPointOut>
+        </LdObject>
+        <LdObject xsi:type="Contact" operand="S2">
+          <RelPosition x="4" y="4" />
+          <ConnectionPointIn>
+            <RelPosition x="2" y="3" />
+            <Connection refConnectionPointOutId="1" />
+          </ConnectionPointIn>
+          <ConnectionPointOut connectionPointOutId="3">
+            <RelPosition x="4" y="3" />
+          </ConnectionPointOut>
+        </LdObject>
+        <FbdObject xsi:type="DataSource" identifier="T#1s">
+          <RelPosition x="8" y="9" />
+          <ConnectionPointOut connectionPointOutId="4">
+            <RelPosition x="4.2" y="1" />
+          </ConnectionPointOut>
+        </FbdObject>
+        <FbdObject xsi:type="Block" typeName="TON" instanceName="S2TON">
+          <RelPosition x="13" y="4" />
+          <InputVariables>
+            <InputVariable parameterName="IN">
+              <ConnectionPointIn>
+                <RelPosition x="0" y="3" />
+                <Connection refConnectionPointOutId="3" />
+              </ConnectionPointIn>
+            </InputVariable>
+            <InputVariable parameterName="PT">
+              <ConnectionPointIn>
+                <RelPosition x="0" y="6" />
+                <Connection refConnectionPointOutId="4" />
+              </ConnectionPointIn>
+            </InputVariable>
+          </InputVariables>
+          <OutputVariables>
+            <OutputVariable parameterName="Q">
+              <ConnectionPointOut connectionPointOutId="5">
+                <RelPosition x="5" y="3" />
+              </ConnectionPointOut>
+            </OutputVariable>
+            <OutputVariable parameterName="ET">
+              <ConnectionPointOut connectionPointOutId="6">
+                <RelPosition x="5" y="6" />
+              </ConnectionPointOut>
+            </OutputVariable>
+          </OutputVariables>
+        </FbdObject>
+        <LdObject xsi:type="Contact" operand="S1">
+          <RelPosition x="4" y="12" />
+          <ConnectionPointIn>
+            <RelPosition x="2" y="3" />
+            <Connection refConnectionPointOutId="2"></Connection>
+          </ConnectionPointIn>
+          <ConnectionPointOut connectionPointOutId="7">
+            <RelPosition x="4" y="3" />
+          </ConnectionPointOut>
+        </LdObject>
+        <LdObject xsi:type="Coil" operand="S1">
+          <RelPosition x="32" y="4" />
+          <ConnectionPointIn>
+            <RelPosition x="2" y="3" />
+            <Connection refConnectionPointOutId="5" />
+            <Connection refConnectionPointOutId="7">
+              <RelPosition x="-10" y="0" />
+              <RelPosition x="-10" y="8" />
+            </Connection>
+          </ConnectionPointIn>
+          <ConnectionPointOut connectionPointOutId="8">
+            <RelPosition x="4" y="3" />
+          </ConnectionPointOut>
+        </LdObject>
+        <LdObject xsi:type="RightPowerRail">
+          <RelPosition x="40" y="0" />
+          <ConnectionPointIn>
+            <RelPosition x="0" y="7" />
+            <Connection refConnectionPointOutId="8" />
+          </ConnectionPointIn>
+        </LdObject>
+      </Rung>
+      <Rung evaluationOrder="4">
+        <RelPosition x="1" y="43" />
+        <LdObject xsi:type="LeftPowerRail">
+          <RelPosition x="1" y="0" />
+          <ConnectionPointOut connectionPointOutId="1">
+            <RelPosition x="0" y="5" />
+          </ConnectionPointOut>
+        </LdObject>
+        <LdObject xsi:type="Contact" negated="true" operand="S2TON.Q">
+          <RelPosition x="4" y="2" />
+          <ConnectionPointIn>
+            <RelPosition x="2" y="3" />
+            <Connection refConnectionPointOutId="1" />
+          </ConnectionPointIn>
+          <ConnectionPointOut connectionPointOutId="2">
+            <RelPosition x="4" y="3" />
+          </ConnectionPointOut>
+        </LdObject>
+        <LdObject xsi:type="Contact" operand="S2">
+          <RelPosition x="11" y="2" />
+          <ConnectionPointIn>
+            <RelPosition x="2" y="3" />
+            <Connection refConnectionPointOutId="2" />
+          </ConnectionPointIn>
+          <ConnectionPointOut connectionPointOutId="3">
+            <RelPosition x="4" y="3" />
+          </ConnectionPointOut>
+        </LdObject>
+        <LdObject xsi:type="Coil" operand="S2">
+          <RelPosition x="32" y="2" />
+          <ConnectionPointIn>
+            <RelPosition x="2" y="3" />
+            <Connection refConnectionPointOutId="3" />
+          </ConnectionPointIn>
+          <ConnectionPointOut connectionPointOutId="4">
+            <RelPosition x="4" y="3" />
+          </ConnectionPointOut>
+        </LdObject>
+        <LdObject xsi:type="RightPowerRail">
+          <RelPosition x="40" y="0" />
+          <ConnectionPointIn>
+            <RelPosition x="0" y="5" />
+            <Connection refConnectionPointOutId="4" />
+          </ConnectionPointIn>
+        </LdObject>
+      </Rung>
+      <Rung evaluationOrder="5">
+        <RelPosition x="1" y="51" />
+        <CommonObject xsi:type="Comment">
+          <RelPosition x="1" y="0" />
+          <Content xsi:type="SimpleText">Output</Content>
+        </CommonObject>
+        <LdObject xsi:type="LeftPowerRail">
+          <RelPosition x="1" y="0" />
+          <ConnectionPointOut connectionPointOutId="1">
+            <RelPosition x="0" y="5" />
+          </ConnectionPointOut>
+        </LdObject>
+        <LdObject xsi:type="Contact" operand="S1">
+          <RelPosition x="4" y="2" />
+          <ConnectionPointIn>
+            <RelPosition x="2" y="3" />
+            <Connection refConnectionPointOutId="1" />
+          </ConnectionPointIn>
+          <ConnectionPointOut connectionPointOutId="2">
+            <RelPosition x="4" y="3" />
+          </ConnectionPointOut>
+        </LdObject>
+        <LdObject xsi:type="Coil" operand="Output">
+          <RelPosition x="32" y="2" />
+          <ConnectionPointIn>
+            <RelPosition x="2" y="3" />
+            <Connection refConnectionPointOutId="2" />
+          </ConnectionPointIn>
+          <ConnectionPointOut connectionPointOutId="3">
+            <RelPosition x="4" y="3" />
+          </ConnectionPointOut>
+        </LdObject>
+        <LdObject xsi:type="RightPowerRail">
+          <RelPosition x="40" y="0" />
+          <ConnectionPointIn>
+            <RelPosition x="0" y="5" />
+            <Connection refConnectionPointOutId="3" />
+          </ConnectionPointIn>
+        </LdObject>
+      </Rung>
+    </BodyContent>
+  </MainBody>
+</FunctionBlock>
