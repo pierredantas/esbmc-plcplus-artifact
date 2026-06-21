@@ -33,10 +33,19 @@ RUN apt-get update && apt-get install -y \
     libboost-filesystem1.74.0 libboost-regex1.74.0 \
     libboost-iostreams1.74.0 libboost-atomic1.74.0 \
     libboost-container1.74.0 libboost-random1.74.0 \
-    libz3-4 \
-    python3 python3-pip bash coreutils wget ca-certificates \
+    unzip python3 python3-pip bash coreutils wget ca-certificates \
     && pip3 install --no-cache-dir pyyaml \
     && rm -rf /var/lib/apt/lists/*
+
+# ---------------------------------------------------------------------------
+# Z3 4.13.3 shared library (matches the version linked into ESBMC binary)
+# ---------------------------------------------------------------------------
+RUN wget -q "https://github.com/Z3Prover/z3/releases/download/z3-4.13.3/z3-4.13.3-x64-glibc-2.35.zip" \
+    -O /tmp/z3.zip \
+    && unzip -q /tmp/z3.zip -d /tmp/z3 \
+    && cp /tmp/z3/z3-4.13.3-x64-glibc-2.35/bin/libz3.so /usr/local/lib/ \
+    && ldconfig \
+    && rm -rf /tmp/z3.zip /tmp/z3
 
 # ---------------------------------------------------------------------------
 # ESBMC-PLC+ binary — downloaded from GitHub Release
