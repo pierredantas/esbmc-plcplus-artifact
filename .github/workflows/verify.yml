@@ -43,5 +43,5 @@ jobs:
           else
             echo "Running RQ1/RQ2/RQ4 (RQ5 skipped — nuXmv removed so it reports SKIP)..."
             docker run --rm --entrypoint bash esbmc-plcplus-artifact -c \
-              "rm -f /usr/local/bin/nuXmv && run_all.sh --esbmc /usr/local/bin/esbmc"
+              "rm -f /usr/local/bin/nuXmv && bash /artifact/run_all.sh --esbmc /usr/local/bin/esbmc"
           fi
