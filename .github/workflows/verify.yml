@@ -1,0 +1,47 @@
+name: Verify experiments reproduce
+
+# Complements publish.yml (which only builds & pushes the Docker image): this
+# workflow builds the same image and actually RUNS the experiments, asserting
+# the reported verdicts reproduce. run_all.sh already exits non-zero if any
+# experiment disagrees with its expected result, so the run itself is the check.
+#
+# Scope: RQ1 (ST frontend, VIOLATION), RQ2 (graphical LD function blocks, SAFE)
+# and RQ4 (inherited-benchmark regressions). RQ5 (the nuXmv performance
+# comparison, ~30 min) is intentionally skipped here by removing nuXmv before
+# the run, so RQ5 reports SKIP (not FAIL) and CI stays fast and deterministic.
+# It can be run in full via the Docker image locally (see README) or the
+# workflow_dispatch input below.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      include_rq5:
+        description: "Also run RQ5 (nuXmv comparison, slow ~30 min)"
+        type: boolean
+        default: false
+
+jobs:
+  verify:
+    name: Run RQ1/RQ2/RQ4 and assert verdicts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Build the artifact image
+        run: docker build --platform linux/amd64 -t esbmc-plcplus-artifact .
+
+      - name: Reproduce experiments (asserts verdicts via run_all.sh exit code)
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event.inputs.include_rq5 }}" = "true" ]; then
+            echo "Running full suite including RQ5 (nuXmv)..."
+            docker run --rm esbmc-plcplus-artifact
+          else
+            echo "Running RQ1/RQ2/RQ4 (RQ5 skipped — nuXmv removed so it reports SKIP)..."
+            docker run --rm --entrypoint bash esbmc-plcplus-artifact -c \
+              "rm -f /usr/local/bin/nuXmv && run_all.sh --esbmc /usr/local/bin/esbmc"
+          fi
