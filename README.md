@@ -1,8 +1,19 @@
 # ESBMC-PLC+ Artifact
 
+[![Verify experiments](https://github.com/pierredantas/esbmc-plcplus-artifact/actions/workflows/verify.yml/badge.svg)](https://github.com/pierredantas/esbmc-plcplus-artifact/actions/workflows/verify.yml)
+[![Build and publish Docker image](https://github.com/pierredantas/esbmc-plcplus-artifact/actions/workflows/publish.yml/badge.svg)](https://github.com/pierredantas/esbmc-plcplus-artifact/actions/workflows/publish.yml)
+
 Reproducibility artifact for:
 
 > **ESBMC-PLC+: A Unified Framework for Formal Verification of IEC 61131-3 PLC Programs via ESBMC**
+
+> **Continuous integration.** Two workflows run on every push:
+> [`publish.yml`](.github/workflows/publish.yml) builds and publishes the Docker image, and
+> [`verify.yml`](.github/workflows/verify.yml) builds the same image and **runs the experiments,
+> asserting the reported verdicts reproduce** (RQ1 VIOLATION, RQ2 SAFE, RQ4 inherited-benchmark
+> regressions). `run_all.sh` exits non-zero on any disagreement, so the run is the check. RQ5
+> (the nuXmv comparison, ~30 min) is skipped in CI to stay fast; run it via the published image
+> or the `verify.yml` `include_rq5` manual-dispatch input.
 
 ## Quickstart (any OS with Docker)
 
